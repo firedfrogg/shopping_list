@@ -1,4 +1,4 @@
-from django.db import models
+
 
 # Create your models here.
 from django.db import models
@@ -9,3 +9,6 @@ class Product(models.Model):
     date_added = models.DateField(auto_now_add=True)
     price = models.IntegerField()
     description = models.TextField()
+
+    def __str__(self):
+        return self.name
