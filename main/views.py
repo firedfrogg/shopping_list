@@ -12,7 +12,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, JsonResponse
+import json
 
 
 # Create your views here.
@@ -41,6 +42,25 @@ def create_product(request):
 
     context = {'form': form}
     return render(request, "create_product.html", context)
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Product.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
 
 def delete_product(request, id):
     # Get data berdasarkan ID
