@@ -102,6 +102,7 @@ if PRODUCTION:
     }
     DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
+CSRF_TRUSTED_ORIGINS = ["https://julian-alex-tutorial.pbp.cs.ui.ac.id"]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
